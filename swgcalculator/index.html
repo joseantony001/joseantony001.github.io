@@ -1,0 +1,154 @@
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>SWG Weight Calculator</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <style>
+    .addIcon {
+      cursor: pointer;
+      margin-left: 24px;
+    }
+
+    .answer {
+      color: red;
+      font-weight: bold;
+	  line-height: 34px;
+    }
+	
+	.error {
+		box-shadow: red 0px 0px 0px 1px;
+	}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-lg-6  column col-sm-offset-0 col-md-offset-2 col-lg-offset-3">
+        <form id="form" class="form-horizontal">
+          <fieldset>
+
+            <!-- Form Name -->
+            <legend>SWG Weight Calculator</legend>
+            <!-- Select Basic -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="total">Total Weight</label>
+              <div class="col-md-9">
+                <input id="total" name="textinput" type="number" placeholder="" class="form-control input-md" required>
+              </div>
+            </div>
+
+            <div id="rows">
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="total"></label>
+              <div class="col-md-9">
+				<button class="btn btn-info" onclick="addRow()" type="button"> <span class="glyphicon glyphicon-plus"></span> </button>
+              </div>
+            </div>
+          </fieldset>
+
+        </form>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="button1id"></label>
+          <div class="col-md-8">
+            <button id="button1id" name="button1id" class="btn btn-success" onclick="calculate()">Calculate</button>
+            <button id="Reset" name="button2id" class="btn btn-danger" onclick="reset()">Reset</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  var rowCount = 0;
+
+  function selected(val, id) {
+    resetValidation()
+	$(`#swg${id}`).addClass('selected');
+  }
+
+  function getRowHtml() {
+    return `<div class="form-group">
+			<label class="col-md-3 control-label" for="selectbasic"></label>
+              <div class="col-md-4">
+                <select id="swg${rowCount}" name="selectbasic" class="form-control select-md" onchange="selected(this.value, ${rowCount})">
+				  <option disabled selected value> -- select SWG -- </option>
+                  <option value="1.41">17 SWG</option>
+                  <option value="1.31">17.5 SWG</option>
+                  <option value="1.21">18 SWG</option>
+				  <option value="1.11">18.5 SWG</option>
+				  <option value="1.01">19 SWG</option>
+                </select>
+              </div>
+			  <div class="col-md-2">
+				<div id = "answer${rowCount}" class="answer"></div>
+			  </div>
+              </div>`;
+  }
+
+  function calculate(evt) {
+	resetValidation();
+    var total = parseInt($("#total").val());
+    var swgs = [];
+    var ratios = [];
+    if (total) {
+      $('.select-md').each(i => {
+        var selectSwg = $('.select-md')[i].value;
+        if (selectSwg) {
+          swgs.push(selectSwg);
+        }
+      });
+	  
+	  if(swgs.length === 0 ||  $('.select-md').length !== swgs.length) {
+		$('.select-md').not('.selected').addClass('error');
+		return;
+	  }
+      var min = Math.min(...swgs);
+      swgs.forEach(swg => {
+        ratios.push(swg / min);
+      });
+      var totalRatios = ratios.reduce((x, y) => x + y)
+      var rate = total / totalRatios;
+      ratios.forEach((ratio, i) => {
+        var selectSwg = $('.select-md')[i].value;
+        if (selectSwg) {
+          $(`#answer${i}`).text((rate * (parseFloat(selectSwg) / min)).toFixed(3));
+        }
+      })
+    } else {
+	  $('#total').addClass('error');
+    }
+  }
+
+  function resetValidation() {
+	$('#total').removeClass('error');
+	$('.select-md').removeClass('error');
+  }
+  
+  function reset() {
+	resetValidation();
+    rowCount = 0;
+    $('#total').val('');
+    $('#rows').html(getRowHtml());
+  }
+
+  function addRow() {
+	resetValidation();
+    $('.addRow').html('');
+	$('.answer').text('');
+    rowCount++;
+    $('#rows').append(getRowHtml());
+  }
+  reset();
+</script>
+
+</html>
