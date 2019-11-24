@@ -10,4 +10,5 @@
   ],
   "start_url": "/swgcalculator",
   "display": "standalone",
+  "prefer_related_applications": false
 }
