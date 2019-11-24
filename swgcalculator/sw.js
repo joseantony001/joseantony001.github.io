@@ -1,6 +1,5 @@
 var CACHE_NAME = 'swg-calculator';
 var urlsToCache = [
-  '/swgcalculator/',
   '/swgcalculator/bootstrap.min.css',
   '/swgcalculator/bootstrap.min.js',
   '/swgcalculator/jquery.min.js'
