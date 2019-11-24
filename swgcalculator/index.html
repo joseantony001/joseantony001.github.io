@@ -107,7 +107,7 @@
       $('.select-md').each(i => {
         var selectSwg = $('.select-md')[i].value;
         if (selectSwg) {
-          swgs.push(selectSwg);
+          swgs.push(Math.pow(parseFloat(selectSwg),2));
         }
       });
 	  
@@ -124,7 +124,7 @@
       ratios.forEach((ratio, i) => {
         var selectSwg = $('.select-md')[i].value;
         if (selectSwg) {
-          $(`#answer${i}`).text((rate * (parseFloat(selectSwg) / min)).toFixed(3));
+          $(`#answer${i}`).text((rate * (Math.pow(parseFloat(selectSwg),2) / min)).toFixed(3));
         }
       })
     } else {
