@@ -8,7 +8,7 @@
       "sizes": "156x156"
     }
   ],
-  "start_url": "/swgcalculator",
+  "start_url": "/swgcalculator/",
   "scope": "/swgcalculator/",
   "display": "standalone",
   "prefer_related_applications": false
