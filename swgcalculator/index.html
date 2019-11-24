@@ -75,7 +75,8 @@
   var rowCount = 0;
 
   function selected(val, id) {
-    resetValidation()
+    resetValidation();
+	$('.answer').text('');
 	$(`#swg${id}`).addClass('selected');
   }
 
@@ -151,7 +152,14 @@
     rowCount++;
     $('#rows').append(getRowHtml());
   }
+  
+  function inputChanged() {
+	resetValidation();
+	$('.answer').text('');
+  }
   reset();
+  
+  $('#total').keydown(inputChanged);
 	
   if (navigator.serviceWorker) {
 		navigator.serviceWorker.register('sw.js').then(function(registration) {
