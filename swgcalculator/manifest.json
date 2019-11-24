@@ -9,6 +9,7 @@
     }
   ],
   "start_url": "/swgcalculator",
+  "scope": "/swgcalculator/",
   "display": "standalone",
   "prefer_related_applications": false
 }
