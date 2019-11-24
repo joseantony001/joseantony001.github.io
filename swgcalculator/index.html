@@ -28,6 +28,15 @@
 	legend {
 		padding-top: 16px;
 	}
+	  	
+	.buttons button {
+		width: 45%;
+	}
+	
+	#calculateBtn {
+		margin-right: 5%;
+	}
+
   </style>
 </head>
 
@@ -62,7 +71,7 @@
         <div class="form-group">
           <label class="col-md-3 control-label" for="button1id"></label>
           <div class="col-md-8">
-            <button id="button1id" name="button1id" class="btn btn-success" onclick="calculate()">Calculate</button>
+            <button id="calculateBtn" name="button1id" class="btn btn-success" onclick="calculate()">Calculate</button>
             <button id="Reset" name="button2id" class="btn btn-danger" onclick="reset()">Reset</button>
           </div>
         </div>
